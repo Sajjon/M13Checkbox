@@ -138,11 +138,22 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
             markLayer.add(checkStrokeAnimation, forKey: "strokeEnd")
             markLayer.add(checkQuickOpacityAnimation, forKey: "opacity")
             selectedBoxLayer.add(boxStrokeAnimation, forKey: "strokeEnd")
-            
-            markLayer.strokeEnd = CGFloat((checkStrokeAnimation.fromValue as! NSNumber).floatValue)
-            markLayer.opacity = (checkQuickOpacityAnimation.fromValue as! NSNumber).floatValue
-            selectedBoxLayer.strokeEnd = CGFloat((checkStrokeAnimation.fromValue as! NSNumber).floatValue)
-            
+
+            guard let markStrokeEndNumber = checkStrokeAnimation.fromValue as? NSNumber else {
+                fatalError("cannot convert `checkStrokeAnimation.fromValue` to NSNumbber")
+            }
+            markLayer.strokeEnd = CGFloat(markStrokeEndNumber.floatValue)
+
+            guard let opacityNumber = checkQuickOpacityAnimation.fromValue as? NSNumber else {
+                fatalError("cannot convert `checkQuickOpacityAnimation.fromValue` to NSNumbber")
+            }
+            markLayer.opacity = opacityNumber.floatValue
+
+            guard let boxStrokeEndNumber = checkStrokeAnimation.fromValue as? NSNumber else {
+                fatalError("cannot convert `checkStrokeAnimation.fromValue` to NSNumbber")
+            }
+            selectedBoxLayer.strokeEnd = CGFloat(boxStrokeEndNumber.floatValue)
+
             CATransaction.commit()
         } else if pathGenerator.pathForMark(toState) != nil && pathGenerator.pathForMark(fromState) == nil {
             // Temporarly set to the long mark.
@@ -181,8 +192,16 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
             markLayer.add(checkStrokeAnimation, forKey: "strokeEnd")
             markLayer.add(checkMorphAnimation, forKey: "path")
 
-            markLayer.strokeEnd = CGFloat((checkStrokeAnimation.fromValue as! NSNumber).floatValue)
-            markLayer.opacity = (checkQuickOpacityAnimation.fromValue as! NSNumber).floatValue
+            guard let markStrokeEndNumber = checkStrokeAnimation.fromValue as? NSNumber else {
+                fatalError("cannot convert `checkStrokeAnimation.fromValue` to NSNumbber")
+            }
+            markLayer.strokeEnd = CGFloat(markStrokeEndNumber.floatValue)
+
+            guard let opacityNumber = checkQuickOpacityAnimation.fromValue as? NSNumber else {
+                fatalError("cannot convert `checkQuickOpacityAnimation.fromValue` to NSNumbber")
+            }
+            markLayer.opacity = opacityNumber.floatValue
+
             markLayer.path = pathGenerator.pathForLongMark(toState)?.reversing().cgPath
             
             CATransaction.commit()

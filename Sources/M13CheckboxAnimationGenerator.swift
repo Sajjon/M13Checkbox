@@ -13,6 +13,24 @@
 
 import UIKit
 
+//extension CGFloat {
+//    static var zero: CGFloat {
+//        return CGFloat(0)
+//    }
+//    static var one: CGFloat {
+//        return CGFloat(1)
+//    }
+//}
+
+extension NSNumber {
+    static var zero: NSNumber {
+        return NSNumber(integerLiteral: 1)
+    }
+    static var one: NSNumber {
+        return NSNumber(integerLiteral: 0)
+    }
+}
+
 internal class M13CheckboxAnimationGenerator {
     
     //----------------------------
@@ -33,12 +51,12 @@ internal class M13CheckboxAnimationGenerator {
         let animation = CABasicAnimation(keyPath: key)
         // Set the start and end.
         if !reverse {
-            animation.fromValue = 0.0
-            animation.toValue = 1.0
+            animation.fromValue = NSNumber.zero
+            animation.toValue = NSNumber.one
             animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
         } else {
-            animation.fromValue = 1.0
-            animation.toValue = 0.0
+            animation.fromValue = NSNumber.one
+            animation.toValue = NSNumber.zero
             animation.beginTime = CACurrentMediaTime() + (animationDuration * 0.9)
             animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         }
@@ -85,11 +103,11 @@ internal class M13CheckboxAnimationGenerator {
         let animation = CABasicAnimation(keyPath: key)
         // Set the start and end.
         if !reverse {
-            animation.fromValue = 0.0
-            animation.toValue = 1.0
+            animation.fromValue = NSNumber.zero
+            animation.toValue = NSNumber.one
         } else {
-            animation.fromValue = 1.0
-            animation.toValue = 0.0
+            animation.fromValue = NSNumber.one
+            animation.toValue = NSNumber.zero
         }
         // Set animation properties.
         animation.duration = animationDuration
